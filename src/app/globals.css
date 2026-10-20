@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* Claude 风格色板：暖纸色底 + 墨黑 + 陶土橙点缀 */
+  --color-paper: #f5f4ef;
+  --color-cream: #ece9e0;
+  --color-cream-deep: #e3dfd3;
+  --color-card: #fbfaf6;
+  --color-ink: #141413;
+  --color-ink-2: #2b2a26;
+  --color-mute: #6e6a60;
+  --color-line: #d9d5c9;
+  --color-clay: #d97757;
+  --color-clay-deep: #bf5c3c;
+  --color-clay-soft: #f6e7de;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-serif: "Georgia", "Songti SC", "STSong", "Noto Serif SC",
+    "SimSun", "Times New Roman", serif;
+  --font-sans: ui-sans-serif, -apple-system, system-ui, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", "Helvetica Neue",
+    Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas,
+    monospace;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --shadow-soft: 0 1px 2px rgb(20 20 19 / 0.05),
+    0 10px 30px -14px rgb(20 20 19 / 0.14);
+  --shadow-lift: 0 2px 4px rgb(20 20 19 / 0.06),
+    0 20px 44px -18px rgb(20 20 19 / 0.2);
+
+  --animate-twinkle: twinkle 5s ease-in-out infinite;
+
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(0.88) rotate(10deg);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+  }
+  ::selection {
+    background: var(--color-clay);
+    color: var(--color-paper);
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  /* 锚点定位时避开吸顶头部 */
+  [id] {
+    scroll-margin-top: 7.5rem;
+  }
 }

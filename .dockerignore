@@ -1,0 +1,12 @@
+# keep the build context small and avoid overwriting the container's
+# linux node_modules with the host's macOS binaries
+node_modules
+.next
+out
+.git
+.gitignore
+Dockerfile
+.dockerignore
+README.md
+AGENTS.md
+*.log
