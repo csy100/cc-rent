@@ -20,6 +20,36 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Docker 部署
+
+多阶段构建：`bun` 构建静态站点（`output: export`），`nginx` 托管产物，容器内监听 80 端口。
+
+```bash
+# 构建镜像
+docker build -t cc-rent .
+
+# 运行容器：宿主机 3008 端口映射到容器 80 端口
+docker run -d --name cc-rent -p 3008:80 cc-rent
+```
+
+浏览器访问 [http://localhost:3008](http://localhost:3008)。
+
+常用命令：
+
+```bash
+docker logs cc-rent        # 查看日志
+docker stop cc-rent        # 停止容器
+docker rm cc-rent          # 删除容器
+```
+
+更新部署（重新构建后替换旧容器）：
+
+```bash
+docker build -t cc-rent .
+docker rm -f cc-rent
+docker run -d --name cc-rent -p 3008:80 cc-rent
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
